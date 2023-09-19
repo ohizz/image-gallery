@@ -32,3 +32,18 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+A image gallery using Nextjs and Firebase where you can quickly upload your photos and see it.
+
+Setup
+Fork and clone this repository.
+Create a new branch for your work.
+Checkout to the branch that you have named.
+Install dependencies with npm install.
+Run npm start to run on local host
+
+Technologies Used
+Nextjs
+Tailwindcss
+Firebase
+Firebase Storage

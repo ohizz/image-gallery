@@ -1,113 +1,71 @@
+'use client'
+
 import Image from 'next/image'
+import { useAuth } from '@/firebase/auth'
+import { useRouter } from 'next/navigation'
+import Loader from './components/Loader'
+import { useEffect, useState } from 'react';
+import { collection,addDoc,getDoc,where, query,doc } from 'firebase/firestore'
+import { db, storage } from '@/firebase/firebase'
+import {ref, uploadBytesResumable, getDownloadURL} from "firebase/storage"
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+ const [image, setImage] = useState("");
+ const [imgUrl, setImgUrl] = useState([]);
+ const {authUser, isLoading, signOut} = useAuth();
+ const [progresspercent, setProgresspercent] = useState(0);
+ const router = useRouter();
+
+ const handleUpload = (e) => {
+  e.preventDefault()
+    const file = e.target[0]?.files[0]
+    if (!file) return;
+    const storageRef = ref(storage, `files/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on("state_changed",
+      (snapshot) => {
+        const progress =
+          Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        setProgresspercent(progress);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setImgUrl(downloadURL)
+        });
+      }
+    );
+  }
+
+ useEffect(() => {
+if(!isLoading && !authUser) {
+  router.push("/login")
+}
+ }, [authUser, isLoading])
+  return !authUser ? (<Loader/>) : (
+    <main className="bg-gray-100 mx-2 md:mx-24 rounded-lg px-2 py-6 md:p-10 mb-10">
+      <button onClick={signOut} className='text-white tracking-tighter bg-blue-700 border rounded px-2 h-[40px]'>logout</button>
+      <div className='flex gap-x-24'>
+        <div className='flex justify-center items-baseline gap-x-2'>
+        <input type="text" className="w-[16rem] md:w-[350px] px-4 py-3 bg-gray-100 mt-2 border border-zinc-900 focus:border-zinc-600 focus:bg-white focus:outline-none" placeholder='search for image'/>
+      <button className="w-[6rem] py-2 border border-blue-700 tracking-tighter text-blue-700">find image</button>
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+     <form className="my-10 flex gap-4 items-baseline"  onSubmit={handleUpload}>
+      <input type="file"  className="w-[16rem] md:w-[350px] px-4 py-3 bg-gray-100 mt-2 border border-zinc-900 focus:border-zinc-600 focus:bg-white focus:outline-none"/>
+      <button className="w-[6rem] border border-blue-700 tracking-tighter text-blue-700 py-2">upload</button>
+     </form>
+     <div className='max-w-2zl mx-auto py-10 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'>
+<div className='grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols xl:grid-cols-4 xl:gap-x-8'>
+{
+        imgUrl &&
+        <img src={imgUrl} alt='uploaded file' height={200} />
+      }
+</div>
+     </div>
     </main>
   )
 }
