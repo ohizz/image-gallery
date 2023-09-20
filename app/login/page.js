@@ -28,7 +28,7 @@ const loginHandler = async() => {
  return isLoading|| (!isLoading && authUser) ? (<Loader/>) :
  (
 
-    <div className="bg-gray-100 max-w-md mx-auto rounded-lg py-10">
+    <div className="bg-gray-100 max-w-md md:mx-auto rounded-lg py-10 mx-4">
     <form className="flex gap-y-6 items-center flex-col" onSubmit={(e) => e.preventDefault()}>
     <div className="flex flex-col w-[75%]">
         {/* <h1 className="font-black text-4xl tracking-tighter">Login Form</h1> */}

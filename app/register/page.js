@@ -43,14 +43,14 @@ const signupHandler = async () => {
 return isLoading || (!isLoading && authUser) ? (
    <Loader />
 ) : (
-   <div className="bg-gray-100 max-w-xl mx-auto rounded-lg px-2 py-6 md:p-10 mb-10">
+   <div className="bg-gray-100 max-w-xl mx-auto rounded-lg px-4 py-6 md:p-10 mb-10 mx-4">
        <form className="flex gap-y-6 items-center flex-col"  onSubmit={(e) => e.preventDefault()}>
-           <div className="flex gap-x-2 justify-center items-center">
+           <div className="flex gap-x-6 justify-center items-center">
             <p>Register to get a free account and explore our image gallery or click on the login button to login if you already have an account</p>
             <Link href="/login" className="h-[40px] bg-blue-700 text-white text-center rounded  p-2">login</Link>
            </div>
            
-           <div>
+        <div>
                <label className="block text-gray-700">name</label>
                <input className="w-[16rem] md:w-[350px] px-4 py-3 bg-gray-100 mt-2 border border-zinc-900 focus:border-zinc-600 focus:bg-white focus:outline-none"  type="text" required onChange={(e) => setUsername(e.target.value)}/>
            </div>
