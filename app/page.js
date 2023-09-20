@@ -46,26 +46,16 @@ if(!isLoading && !authUser) {
 }
  }, [authUser, isLoading])
   return !authUser ? (<Loader/>) : (
-    <main className="bg-gray-100 mx-2 md:mx-24 rounded-lg px-2 py-6 md:p-10 mb-10">
-      <button onClick={signOut} className='text-white tracking-tighter bg-blue-700 border rounded px-2 h-[40px]'>logout</button>
-      <div className='flex gap-x-24'>
-        <div className='flex justify-center items-baseline gap-x-2'>
-        <input type="text" className="w-[16rem] md:w-[350px] px-4 py-3 bg-gray-100 mt-2 border border-zinc-900 focus:border-zinc-600 focus:bg-white focus:outline-none" placeholder='search for image'/>
-      <button className="w-[6rem] py-2 border border-blue-700 tracking-tighter text-blue-700">find image</button>
-        </div>
+    <main className="bg-gray-200 rounded-lg mx-4 px-6 py-6 max-w-2xl md:mx-auto">
+     <form className=""  onSubmit={handleUpload}>
+      <div className="flex justify-between items-center">
+      <button onClick={signOut} className='text-white tracking-tighter bg-blue-700 border rounded px-3 h-[40px]'>logout</button>
+      <label className='cursor-pointer text-blue-700 tracking-tighter border border-blue-700 rounded p-2 h-[40px] hover:bg-blue-700 hover:text-white' htmlFor='upload'>upload</label>
+      <input type="file" id="upload" className="hidden"/>
       </div>
-     <form className="my-10 flex gap-4 items-baseline"  onSubmit={handleUpload}>
-      <input type="file"  className="w-[16rem] md:w-[350px] px-4 py-3 bg-gray-100 mt-2 border border-zinc-900 focus:border-zinc-600 focus:bg-white focus:outline-none"/>
-      <button className="w-[6rem] border border-blue-700 tracking-tighter text-blue-700 py-2">upload</button>
      </form>
-     <div className='max-w-2zl mx-auto py-10 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'>
-<div className='grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols xl:grid-cols-4 xl:gap-x-8'>
-{
-        imgUrl &&
-        <img src={imgUrl} alt='uploaded file' height={200} />
-      }
-</div>
-     </div>
+
+     <div></div>
     </main>
   )
 }
