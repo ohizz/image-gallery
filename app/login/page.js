@@ -6,7 +6,7 @@ import { useAuth } from "@/firebase/auth";
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation";
 import Loader from "../components/Loader";
-const page = () => {
+const Page = () => {
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
  const {authUser, isLoading} = useAuth();
@@ -53,4 +53,4 @@ const loginHandler = async() => {
  )
 }
 
-export default page
+export default Page
