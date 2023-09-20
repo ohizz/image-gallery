@@ -31,8 +31,7 @@ const loginHandler = async() => {
     <div className="bg-gray-100 max-w-md md:mx-auto rounded-lg py-10 mx-4">
     <form className="flex gap-y-6 items-center flex-col" onSubmit={(e) => e.preventDefault()}>
     <div className="flex flex-col w-[75%]">
-        {/* <h1 className="font-black text-4xl tracking-tighter">Login Form</h1> */}
-        <div className="flex items-center justify-center gap-x-2">
+        <div className="flex items-center justify-center gap-x-4">
         <p className="tracking-tighter">Login to explore our image Gallery or sign up if you dont have an account</p>
         <Link href="/register" className=" p-2 h-[40px] bg-blue-700 text-white text-center rounded ">register</Link>
         </div>

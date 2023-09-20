@@ -44,9 +44,9 @@ return isLoading || (!isLoading && authUser) ? (
    <Loader />
 ) : (
    <div className="bg-gray-100 max-w-xl mx-auto rounded-lg px-4 py-6 md:p-10 mb-10 mx-4">
-       <form className="flex gap-y-6 items-center flex-col"  onSubmit={(e) => e.preventDefault()}>
-           <div className="flex gap-x-6 justify-center items-center">
-            <p>Register to get a free account and explore our image gallery or click on the login button to login if you already have an account</p>
+       <form className="flex gap-y-6 items-center flex-col" onSubmit={(e) => e.preventDefault()}>
+           <div className="flex gap-x-4 justify-center items-center">
+            <p className="-tracking[1px]">Register to get a free account and explore our image gallery or click on the login button to login if you already have an account</p>
             <Link href="/login" className="h-[40px] bg-blue-700 text-white text-center rounded  p-2">login</Link>
            </div>
            
