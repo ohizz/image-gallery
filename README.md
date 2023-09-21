@@ -45,5 +45,7 @@ Run npm start to run on local host
 Technologies Used
 Nextjs
 Tailwindcss
-Firebase
+Firebase Authentication
 Firebase Storage
+
+create an account with google firebase and setup Authentication and storage base
