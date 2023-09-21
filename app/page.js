@@ -82,7 +82,7 @@ if(!isLoading && !authUser) {
     </div>
     <div className='mt-10 grid gap-y-6 gap-x-4 grid-cols-2 sm:grid-cols-3 md:gap-x-8 mx-4'>
        {imageUrl.map((url, id) => (
-          <Image key={id} src={url} width={300} height={200}  className={`${isImg ? "grayscale blur-sm scale-110" : 'grayscale-0 blur-0 scale-100 rounded-md'} 'w-full h-32 md:h-[280px] object-cover rounded'`} onLoadingComplete={() => isSetImg(false)}/>
+          <Image key={id} src={url} width={300} height={200}  className={`${isImg ? "grayscale blur-sm scale-110" : 'grayscale-0 blur-0 scale-100 rounded-md'} 'w-full h-32 md:h-[280px] object-cover rounded-lg'`} onLoadingComplete={() => isSetImg(false)}/>
 ))}
      </div>
     </main>
