@@ -1,51 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+A drag and drop image gallery where you can quickly upload your photos and see it.
 
-## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-A image gallery using Nextjs and Firebase where you can quickly upload your photos and see it.
-
-Setup
-Fork and clone this repository.
-Create a new branch for your work.
-Checkout to the branch that you have named.
-Install dependencies with npm install.
-Run npm start to run on local host
-
-Technologies Used
+TECHNOLOGY
 Nextjs
 Tailwindcss
 Firebase Authentication
 Firebase Storage
 
-create an account with google firebase and setup Authentication and storage base
+FEATURES
+-Sign up
+-Sign in
+-Image upload
+
+INSTALLATION
+Clone the repository and run npm install if you use npm as package manager or yarn install if you use yarn as package manager.
+
+Step by step tutorial
+
+Activate Firebase Authentication Providers
+
+Authentication -> Sign-in-method -> Enable Email/Password & Google provider
+
+Configure your firebase configuration src/environments/firebaseConfig.js
+
+export const FireBaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    databaseURL: "YOUR_DATABASE_URL",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_SENDER_ID"
+};
+
+
+Run the Server.
